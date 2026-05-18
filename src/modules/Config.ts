@@ -102,6 +102,9 @@ export namespace Config {
     }
 
     export namespace Spawn {
+        // Максимальное количество танков противника.
+        export const maxFoes = 4;
+
         // Частота спауна танков противника.
         export const foeSpawnFrequency = 5000;
 

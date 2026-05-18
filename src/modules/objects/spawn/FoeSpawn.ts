@@ -28,6 +28,11 @@ export class FoeSpawn extends AbstractSpawn {
     public static foes:FoeType[] = [];
     
     /**
+     * Количество заспауненных противников в данный момент.
+     */
+    public static tanksSpawned:number = 0;
+    
+    /**
      * Был ли запущен спаун противников.
      */
     public static spawnStarted:boolean = false;
@@ -111,7 +116,19 @@ export class FoeSpawn extends AbstractSpawn {
             return;
         }
 
-        // Берем первый танк из спаска танков противника.
+        // Если на карте уже находится максимальное количество танков,
+        // откладываем спаун.
+        if (FoeSpawn.tanksSpawned >= Config.Spawn.maxFoes) {
+            window.setTimeout(function () {
+                me.spawn();
+            }, Config.Spawn.delay);
+            return;
+        }
+
+        // Изменяем количество заспауненных танков в классе спаунера заранее.
+        FoeSpawn.tanksSpawned++;
+
+        // Берем первый танк из списка танков противника.
         const foeType:FoeType = FoeSpawn.foes.splice(0, 1)[0];
 
         window.setTimeout(function () {

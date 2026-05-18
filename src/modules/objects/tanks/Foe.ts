@@ -13,6 +13,7 @@ import {Eagle} from "../eagle/Eagle.ts";
 import {Bullet} from "../projectiles/Bullet.ts";
 import {Ceramic} from "../obstacles/Ceramic.ts";
 import {Water} from "../obstacles/Water.ts";
+import {FoeSpawn} from "../spawn/FoeSpawn.ts";
 import {Helper} from "../../Helper.ts";
 
 export class Foe extends AbstractTank {
@@ -187,5 +188,15 @@ export class Foe extends AbstractTank {
         const intervalId = window.setInterval(function () {
             me.destroyed ? window.clearInterval(intervalId) : me.shoot();
         }, Config.Bullet.basicSpeed * 4);
+    }
+
+    /**
+     * Уничтожает танк.
+     */
+    public destroy():void {
+        super.destroy();
+
+        // Изменяем количество заспауненных танков в классе спаунера.
+        FoeSpawn.tanksSpawned--;
     }
 }
