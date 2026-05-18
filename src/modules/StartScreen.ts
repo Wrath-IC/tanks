@@ -231,9 +231,11 @@ export class StartScreen {
         switch (this.selectedItem) {
             case StartMenu.onePlayer:
                 this.startGame(1);
+                this.destroy();
                 break;
             case StartMenu.twoPlayers:
                 this.startGame(2);
+                this.destroy();
                 break;
             default:
                 break;
@@ -246,5 +248,12 @@ export class StartScreen {
      */
     private startGame(palyers:number):void {
         new Grid(this.level, palyers);
+    }
+
+    /**
+     * Деструктор компонента.
+     */
+    private destroy() {
+        this.removeControls();
     }
 }
