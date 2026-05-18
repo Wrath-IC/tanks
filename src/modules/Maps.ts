@@ -14,6 +14,7 @@ export const Maps:Readonly<MapConfig[]> = [
             {objectType:o.spawnFoe, location:{x:12, y:0}},
             {objectType:o.spawnFirstPlayer, location:{x:4, y:12}},
             {objectType:o.spawnSecondPlayer, location:{x:8, y:12}},
+            {objectType:o.eagle, location:{x:6, y:12}},
 
             {objectType:o.brick, location:{x:5, y:12}},
             {objectType:o.brick, location:{x:5, y:11}},
@@ -89,6 +90,7 @@ export const Maps:Readonly<MapConfig[]> = [
             {objectType:o.spawnFoe, location:{x:12, y:0}},
             {objectType:o.spawnFirstPlayer, location:{x:4, y:12}},
             {objectType:o.spawnSecondPlayer, location:{x:8, y:12}},
+            {objectType:o.eagle, location:{x:6, y:12}},
 
             {objectType:o.brick, location:{x:5, y:12}},
             {objectType:o.brick, location:{x:5, y:11}},
@@ -116,6 +118,7 @@ export const Maps:Readonly<MapConfig[]> = [
             {objectType:o.spawnFoe, location:{x:12, y:0}},
             {objectType:o.spawnFirstPlayer, location:{x:4, y:12}},
             {objectType:o.spawnSecondPlayer, location:{x:8, y:12}},
+            {objectType:o.eagle, location:{x:6, y:12}},
 
             {objectType:o.brick, location:{x:5, y:12}},
             {objectType:o.brick, location:{x:5, y:11}},

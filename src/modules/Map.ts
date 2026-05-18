@@ -10,6 +10,7 @@ import {MapObjectType} from "./Enums.ts";
 import {AbstractObject} from "./objects/AbstractObject.ts";
 import {PlayerSpawn} from "./objects/spawn/PlayerSpawn.ts";
 import {FoeSpawn} from "./objects/spawn/FoeSpawn.ts";
+import {Eagle} from "./objects/eagle/Eagle.ts";
 import {Brick} from "./objects/obstacles/Brick.ts";
 import {Ceramic} from "./objects/obstacles/Ceramic.ts";
 import {Water} from "./objects/obstacles/Water.ts";
@@ -71,6 +72,9 @@ export class Map {
                     // игра запущена хотя бы на двоих.
                     new PlayerSpawn(grid, location, 1);
                 }
+                break;
+            case MapObjectType.eagle:
+                new Eagle(grid, location);
                 break;
             case MapObjectType.brick:
                 new Brick(grid, location);

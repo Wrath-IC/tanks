@@ -58,6 +58,7 @@ export enum MapObjectType {
     spawnFoe,
     spawnFirstPlayer,
     spawnSecondPlayer,
+    eagle,
     brick,
     ceramic,
     water

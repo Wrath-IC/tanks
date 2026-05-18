@@ -10,6 +10,22 @@ import {Location, Coordinates} from "../../Types.ts";
 import {Config} from "../../Config.ts";
 
 export class TankExplosion extends BackgroundObject {
+    /**
+     * Длина анимации первой фазы.
+     */
+    public animationDurationFirstPhase:number = 200;
+
+    /**
+     * Длина анимации второй фазы.
+     */
+    public animationDurationSecondPhase:number = 200;
+
+    /**
+     * Конструктор.
+     * @param grid Ссылка на поле боя.
+     * @param location Расположение объекта.
+     * @param coordinates Координаты взрыва внутри переданной ячейки.
+     */
     public constructor(grid:Grid, location:Location, coordinates:Coordinates) {
         super(grid, location);
         // Устанавливаем класс иконки препятствия.
@@ -44,6 +60,7 @@ export class TankExplosion extends BackgroundObject {
      * Анимирует иконку.
      */
     private animate():void {
+        const me = this;
         const icon = this.icon;
         const el = icon.childNodes[0] as HTMLElement;
         const cellSize = Config.cellSize;
@@ -54,7 +71,7 @@ export class TankExplosion extends BackgroundObject {
             width: ['0', cellSize + 'px'],
             height: ['0', cellSize + 'px']
         }, {
-            duration: 200,
+            duration: me.animationDurationFirstPhase,
             iterations: 1,
             fill: 'forwards'
         }).onfinish = function () {
@@ -64,7 +81,7 @@ export class TankExplosion extends BackgroundObject {
             }
             
             el.animate(animations, {
-                duration: 200,
+                duration: me.animationDurationSecondPhase,
                 iterations: 1,
                 fill: 'forwards'
             }).onfinish = function () {

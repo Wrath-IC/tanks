@@ -9,6 +9,7 @@ import {FoeType, BulletType, Direction} from "../../Enums.ts";
 import {Grid} from "../../Grid.ts";
 import {AbstractTank} from "./AbstractTank.ts";
 import {Player} from "./Player.ts";
+import {Eagle} from "../eagle/Eagle.ts";
 import {Bullet} from "../projectiles/Bullet.ts";
 import {Ceramic} from "../obstacles/Ceramic.ts";
 import {Water} from "../obstacles/Water.ts";
@@ -93,8 +94,10 @@ export class Foe extends AbstractTank {
             for (let j = 0; j < y; j++) {
                 const object = grid.getSolidObject({x:i, y:j});
                 if (object) {
-                    if (object instanceof Player) {
-                        // todo добавить в условие птицу.
+                    if (
+                        object instanceof Player ||
+                        object instanceof Eagle
+                    ) {
                         map[i][j] = 0;
                         growCells.push({x:i, y:j});
                     } else if (

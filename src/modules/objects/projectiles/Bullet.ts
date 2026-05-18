@@ -11,6 +11,7 @@ import {Coordinates} from "../../Types.ts";
 import {AbstractTank} from "../tanks/AbstractTank.ts";
 import {Player} from "../tanks/Player.ts";
 import {Foe} from "../tanks/Foe.ts";
+import {Eagle} from "../eagle/Eagle.ts";
 import {SolidObject} from "../SolidObject.ts";
 import {AbstractObstacle} from "../obstacles/AbstractObstacle.ts";
 import {Water} from "../obstacles/Water.ts";
@@ -227,8 +228,11 @@ export class Bullet {
             // Если в ячейке ничего нет или если снаряд каким-либо образом попал
             // в выстреливший его танк.
             return null;
-        } else if (solidObject instanceof AbstractObstacle) {
-            // Если в ячейке статичное препятствие.
+        } else if (
+            solidObject instanceof AbstractObstacle ||
+            solidObject instanceof Eagle
+        ) {
+            // Если в ячейке статичное препятствие или орел.
             return solidObject;
         } else if (solidObject instanceof AbstractTank) {
             // Если в ячейке танк.

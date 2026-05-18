@@ -14,6 +14,12 @@ export class BulletExplosion extends BackgroundObject {
      */
     private readonly explosionSize:number = 24;
 
+    /**
+     * Конструктор.
+     * @param grid Ссылка на поле боя.
+     * @param location Расположение объекта. Игнорируется внутри данного класса.
+     * @param coordinates Координаты взрыва относительно всего поля боя.
+     */
     public constructor(grid:Grid, location:Location, coordinates:Coordinates) {
         super(grid, location);
         // Устанавливаем класс иконки препятствия.

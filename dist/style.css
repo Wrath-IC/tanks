@@ -54,7 +54,7 @@ table#battlefield > tr > td {
 }
 
 /* Все твердые объекты */
-.player, .foe, .plug, .obstacle {
+.player, .foe, .plug, .obstacle, .eagle, .eagle-plug {
     position:absolute;
     top: 0;
     left: 0;
@@ -444,4 +444,15 @@ table#battlefield > tr > td {
     position: absolute;
     background-color: #d33;
     border-radius: 50%;
+}
+
+/* Орел */
+.eagle {
+    background-color: #ddd;
+    clip-path: polygon(40% 95%, 35% 80%, 30% 80%, 30% 50%, 5% 30%, 45% 30%, 45% 25%, 40% 25%, 40% 20%, 30% 15%, 40% 10%, 40% 5%, 45% 5%, 60% 5%, 60% 25%, 55% 25%, 55% 30%, 95% 30%, 70% 50%, 70% 80%, 65% 80%, 60% 95%, 55% 80%, 45% 80%);
+}
+.eagle-plug {
+    background-color: #ddd;
+    visibility: hidden;
+    clip-path: polygon(30% 80%, 30% 50%, 5% 60%, 30% 30%, 70% 30%, 95% 60%, 70% 50%, 70% 80%);
 }
