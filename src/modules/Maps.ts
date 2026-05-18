@@ -130,6 +130,10 @@ export const Maps:Readonly<MapConfig[]> = [
             {objectType:o.water, location:{x:5, y:4}},
             {objectType:o.water, location:{x:4, y:5}},
             {objectType:o.water, location:{x:5, y:5}},
+            {objectType:o.bush, location:{x:6, y:6}},
+            {objectType:o.bush, location:{x:6, y:7}},
+            {objectType:o.bush, location:{x:7, y:6}},
+            {objectType:o.bush, location:{x:7, y:7}},
         ],
         foes: [
         

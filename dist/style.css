@@ -456,3 +456,21 @@ table#battlefield > tr > td {
     visibility: hidden;
     clip-path: polygon(30% 80%, 30% 50%, 5% 60%, 30% 30%, 70% 30%, 95% 60%, 70% 50%, 70% 80%);
 }
+
+/* Фоновые объекты. */
+.bush {
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 64px;
+    height: 64px;
+    z-index: 30;
+    line-height: 0px;
+}
+.bush > div {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    background-color: #0d6c0d;
+    border-radius: 6px;
+}
