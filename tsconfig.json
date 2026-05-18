@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/js/",
+    "noImplicitAny": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "target": "esnext",
+    "jsx": "react-jsx",
+    "allowJs": true,
+	"allowSyntheticDefaultImports": true,
+	"esModuleInterop": true,
+	
+	"rootDir": "./src/",
+	"allowImportingTsExtensions": true,
+	"rewriteRelativeImportExtensions": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
