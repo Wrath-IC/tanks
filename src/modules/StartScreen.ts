@@ -22,8 +22,7 @@ export class StartScreen {
     /**
      * Количество пунктов меню.
      */
-    // todo Вычислить на основе emun StartMenu.
-    private itemsNum:number = 2;
+    private itemsNum:number;
 
     /**
      * Выбранный уровень.
@@ -46,6 +45,15 @@ export class StartScreen {
     public constructor() {
         this.el = this.createElement();
 
+        // Вычисляем количество пунктов меню.
+        let itemsNum = 0;
+        for (let key in StartMenu) {
+            if (Number.isFinite(Number(key))) {
+                itemsNum++;
+            }
+        }
+        this.itemsNum = itemsNum;
+
         // Выбирает первый пункт меню.
         this.select(StartMenu.onePlayer);
 
@@ -59,8 +67,6 @@ export class StartScreen {
 
         // Размещаем элемент в DOM-е.
         Helper.fillBody(this.el);
-        
-        // todo destroy: deinitControls
     }
 
     /**
