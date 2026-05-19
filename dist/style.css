@@ -474,3 +474,20 @@ table#battlefield > tr > td {
     background-color: #0d6c0d;
     border-radius: 6px;
 }
+
+.ice, .ice > div {
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 64px;
+    height: 64px;
+}
+.ice {
+    z-index: 5;
+    background-color: #8686e4;
+}
+.ice > div {
+    z-index: 6;
+    background-color: #5454a4;
+    clip-path: polygon(0 45%, 45% 0, 55% 0, 0 55%, 0 100%, 45% 100%, 100% 45%, 100% 55%, 55% 100%, 0 100%);
+}

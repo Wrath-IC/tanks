@@ -62,5 +62,6 @@ export enum MapObjectType {
     brick,
     ceramic,
     water,
-    bush
+    bush,
+    ice
 }

@@ -3,12 +3,7 @@
  * Фоновое препятствие "кусты".
  */
 
-// import {Config} from "../../Config.ts";
 import {BackgroundObject} from "../BackgroundObject.ts";
-// import {ObstacleType} from "../../Enums.ts";
-// import {Location} from "../../Types.ts";
-// import {Grid} from "../../Grid.ts";
-// import {Bullet} from "../projectiles/Bullet.ts";
 
 export class Bush extends BackgroundObject {
     /**

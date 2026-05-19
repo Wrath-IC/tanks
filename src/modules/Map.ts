@@ -15,6 +15,7 @@ import {Brick} from "./objects/obstacles/Brick.ts";
 import {Ceramic} from "./objects/obstacles/Ceramic.ts";
 import {Water} from "./objects/obstacles/Water.ts";
 import {Bush} from "./objects/bgobjects/Bush.ts";
+import {Ice} from "./objects/bgobjects/Ice.ts";
 
 export class Map {
     /**
@@ -88,6 +89,9 @@ export class Map {
                 break;
             case MapObjectType.bush:
                 new Bush(grid, location);
+                break;
+            case MapObjectType.ice:
+                new Ice(grid, location);
                 break;
             default:
                 break;

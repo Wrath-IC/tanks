@@ -10,6 +10,7 @@ import {Grid} from "../../Grid.ts";
 import {Helper} from "../../Helper.ts";
 import {SolidObject} from "../SolidObject.ts";
 import {Bullet} from "../projectiles/Bullet.ts";
+import {Ice} from "../bgobjects/Ice.ts";
 import {TankExplosion} from "../explosions/TankExplosion.ts";
 
 export abstract class AbstractTank extends SolidObject {
@@ -130,12 +131,15 @@ export abstract class AbstractTank extends SolidObject {
         // переместиться на одну клетку).
         const basicSpeed = Config.basicSpeed;
         const tankSpeed = this.tankConfig.speed;
-        const duration = basicSpeed / tankSpeed;
+        // Модификатор скорости, который накладывает лед (если он есть).
+        const hasIce = grid.hasIce(oldLocation) || grid.hasIce(moveLocation);
+        const iceModificator = hasIce ? Ice.speedModificator : 1;
+        const duration = basicSpeed / tankSpeed / iceModificator;
         // Анимация перемещения.
         const el = this.icon;
         el.animate(animateConfig, {duration:duration, iterations: 1}).onfinish = function () {
-            // После завершения анимации
-            
+            // После завершения анимации.
+
             // Если танк уже уничтожен, то прерываем.
             if (me.destroyed) {
                 return;
@@ -143,12 +147,12 @@ export abstract class AbstractTank extends SolidObject {
 
             // Удаляем танк с поля боя.
             grid.removeSolidObject(me);
-            
+
             // Устанавливаем новую локацию танка и очищаем локацию, куда танк
             // движется.
             me.location = moveLocation;
             me.moveLocation = null;
-            
+
             // Размещаем танк на поле боя (будет использоваться новая локация).
             grid.placeSolidObject(me);
 
@@ -173,7 +177,7 @@ export abstract class AbstractTank extends SolidObject {
         const location = this.location;
         const offsetTop = this.icon.offsetTop;
         const offsetLeft = this.icon.offsetLeft;
-        
+
         return coordinates.x > offsetLeft + cellSize * location.x &&
             coordinates.x < offsetLeft + cellSize * (location.x + 1) &&
             coordinates.y > offsetTop + cellSize * location.y &&

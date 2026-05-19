@@ -15,6 +15,7 @@ import {Player} from "./objects/tanks/Player.ts";
 import {Foe} from "./objects/tanks/Foe.ts";
 import {Ceramic} from "./objects/obstacles/Ceramic.ts";
 import {Brick} from "./objects/obstacles/Brick.ts";
+import {Ice} from "./objects/bgobjects/Ice.ts";
 import {Bullet} from "./objects/projectiles/Bullet.ts";
 import {PlayerSpawn} from "./objects/spawn/PlayerSpawn.ts";
 
@@ -38,12 +39,12 @@ export class Grid {
      * Количество игроков.
      */
     public readonly playerNum:number;
-    
+
     /**
      * Массив текущих твердых объектов.
      */
     private solidObjects:Array<Array<SolidObject|null>>;
-    
+
     /**
      * Массив текущих твердых объектов.
      */
@@ -60,7 +61,7 @@ export class Grid {
 
         // Создаем карту.
         const map = new Map(this, mapNum);
-        
+
         // Устанавливаем размеры поля боя.
         const x = map.mapConfig.size.x;
         const y = map.mapConfig.size.y;
@@ -69,21 +70,21 @@ export class Grid {
 
         // Создаем элемент поля боя для DOM-а.
         this.el = this.createGrid(x, y);
-        
+
         // Заполняем двумерный массив твердых объектов null-ами.
         this.solidObjects = Array.from({length: x}, () => Array(y).fill(null));
-        
+
         // Заполняем двумерный массив фоновых объектов пустыми массивами. В итоге
         // получаем трехмерный массив.
-        this.backgroundObjects = Array.from({length: x}, () => Array(y).fill([]));
-        
+        this.backgroundObjects = Array.from({length: x}, () => Array.from({length: y}, () => []));
+
         // Заполняем поле боя объектами карты.
         map.fill();
 
         // Отрисовываем поле боя.
         Helper.fillBody(this.el);
     }
-    
+
     /**
      * Создает основную таблицу.
      * @param x Количество ячеек по горизонтали.
@@ -91,29 +92,29 @@ export class Grid {
      */
     public createGrid(x:number, y:number):HTMLElement {
         const grid:HTMLElement = document.createElement('table');
-        
+
         grid.setAttribute('id', 'battlefield');
-        
+
         for (let i = 0; i < y; i++) {
             const tr:HTMLElement = this.createRow(x);
             grid.append(tr);
         }
-        
+
         return grid;
     }
-    
+
     /**
      * Создает строку для основной таблицы.
      * @param x Количество ячеек в строке.
      */
     private createRow(x:number):HTMLElement {
         const row:HTMLElement = document.createElement('tr');
-        
+
         for (let i = 0; i < x; i++) {
             const td:HTMLElement = document.createElement('td');
             row.append(td);
         }
-        
+
         return row;
     }
 
@@ -130,7 +131,7 @@ export class Grid {
         if (!location) {
             location = solidObject.location;
         }
-        
+
         // Проверка, что местоположение попадает в таблицу.
         if (!this.isInside(location)) {
             new Exception(`Данная локация не попадает в таблицу: x = ${location.x}, y = ${location.y}.`);
@@ -237,5 +238,26 @@ export class Grid {
     public isInside(location:Location):boolean {
         return location.x >= 0 && location.x < this.x &&
             location.y >= 0 && location.y < this.y;
+    }
+
+    /**
+     * Проверяет, находится ли на данной клетке лед.
+     * @param location Проверяемая локация.
+     */
+    public hasIce(location:Location):boolean {
+        // Если локация не в таблице, просто возвращаем false.
+        if (!this.isInside) {
+            return false;
+        }
+
+        let hasIce = false;
+        const objects:BackgroundObject[] = this.backgroundObjects[location.x][location.y];
+        objects.forEach(function (item) {
+            if (item instanceof Ice) {
+                hasIce = true;
+            }
+        });
+
+        return hasIce;
     }
 }
