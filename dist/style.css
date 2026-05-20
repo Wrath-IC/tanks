@@ -9,7 +9,7 @@
     background-color: #ccc;
     padding-bottom: 100px;
 }
-#startscreen .title p {
+#startscreen .title p, .gameover p {
     text-align: center;
     font-size: 50pt;
     font-family: fantasy;
@@ -17,8 +17,10 @@
     font-weight: 1000;
     letter-spacing: 5px;
     margin: 0;
-    padding: 100px 0;
     color: #470d0d;
+}
+#startscreen .title p {
+    padding: 100px 0;
 }
 #startscreen .row .icon {
     width: 64px;
@@ -39,6 +41,16 @@
 #startscreen .level p {
     font-size: 32px;
     text-align: center;
+}
+
+/* Экран геймовера */
+.gameover {
+    position: absolute;
+    z-index: 50;
+}
+.gameover p {
+    -webkit-text-stroke: 1px #fff;
+    text-stroke: 1px #fff;
 }
 
 /* Поле боя */

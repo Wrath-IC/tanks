@@ -23,6 +23,9 @@ export namespace Config {
     // Количество жизней у игрока.
     export const lives = 3;
 
+    // Время, за которое выезжает надпись "Game over".
+    export const gameOverScreenDuration = 2000;
+
     // Настройки игроков.
     export const player:TankConfig[] = [
         {

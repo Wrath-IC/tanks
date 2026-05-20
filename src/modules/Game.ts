@@ -90,8 +90,40 @@ export class Game {
     private static gameOver():void {
         if (!Game.isGameOver) {
             Game.isGameOver = true;
-            console.log('gameOver');
-            // todo Реализовать геймовер.
+            Game.gameOverScreen();
         }
+    }
+
+    /**
+     * Вывод экрана геймовера.
+     */
+    private static gameOverScreen():void {
+        const screen:HTMLElement = document.createElement('div');
+        screen.classList.add('gameover');
+        screen.innerHTML = '<p>GAME</p><p>OVER</p>';
+        
+        const grid = this.level && this.level.el;
+        if (!grid) {
+            return;
+        }
+        grid.parentNode && grid.parentNode.append(screen);
+        
+        // Анимация экрана.
+        // Отступ слева.
+        const left = (grid.offsetWidth - screen.offsetWidth) / 2;
+        // Отступ сверху в начале анимации.
+        const topStart = grid.offsetHeight;
+        // Отступ сверху в конце анимации.
+        const topEnd = (grid.offsetHeight - screen.offsetHeight) / 2;
+        const animateConfig = { top: [`${topStart}px`, `${topEnd}px`] };
+        const duration = Config.gameOverScreenDuration;
+        screen.style.left = `${left}px`;
+        screen.animate(animateConfig, {
+            duration:duration,
+            iterations: 1,
+            fill: 'forwards'
+        }).onfinish = function () {
+            // todo Завершение уровня после геймовера.
+        };
     }
 }
