@@ -9,6 +9,7 @@ import {Player} from "../tanks/Player.ts";
 import {Grid} from "../../Grid.ts";
 import {Location} from "../../Types.ts";
 import {Config} from "../../Config.ts";
+import {Game} from "../../Game.ts";
 
 export class PlayerSpawn extends AbstractSpawn {
     /**
@@ -43,23 +44,31 @@ export class PlayerSpawn extends AbstractSpawn {
      */
     public spawn():void {
         const me = this;
-        // todo Реализовать проверку количества жизней.
-        
+
+        // Если у игрока не осталось жизней, прерываем спаун.
+        if (!Game.hasLifes(me.playerNum)) {
+            return;
+        }
+
         window.setTimeout(function () {
-            // todo Проверить, что игра еще идет.
-            
             // Создаем событие: оно вызовет создание заглушки как только нужная
             // клетка будет свободна.
             const intervalId = window.setInterval(function () {
-                if (!me.grid.getSolidObject(me.location)) {
+                if (!Game.isLevel(me.grid)) {
+                    // Если уже запущен другой уровень, прерываем выполнение.
+                    window.clearInterval(intervalId);
+                } else if (!me.grid.getSolidObject(me.location)) {
                     window.clearInterval(intervalId);
                     // Создаем заглушку.
                     const plug = new Plug(me.grid, me.location);
                     window.setTimeout(function () {
-                        // Убираем заглушку.
-                        plug.destroy();
-                        // Создаем танк.
-                        new Player(me.grid, me.location, me, me.playerNum);
+                        // Если еще не перешли на следующий уровень.
+                        if (Game.isLevel(me.grid)) {
+                            // Убираем заглушку.
+                            plug.destroy();
+                            // Создаем танк.
+                            new Player(me.grid, me.location, me, me.playerNum);
+                        }
                     }, Config.Spawn.plugTime);
                 }
             }, 1000 / Config.fps);

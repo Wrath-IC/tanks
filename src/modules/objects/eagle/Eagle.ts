@@ -7,6 +7,7 @@ import {Plug} from "./Plug.ts";
 import {SolidObject} from "../SolidObject.ts";
 import {Location} from "../../Types.ts";
 import {Grid} from "../../Grid.ts";
+import {Game} from "../../Game.ts";
 import {Bullet} from "../projectiles/Bullet.ts";
 import {TankExplosion} from "../explosions/TankExplosion.ts";
 
@@ -64,6 +65,9 @@ export class Eagle extends SolidObject {
         // распространяется, но когда он будет развеиваться затычка уже будет на
         // месте.
         const delay = explosion.animationDurationFirstPhase;
-        new Plug(this.grid, this.location, delay);
+        new Plug(this.grid, this.location, delay);2
+
+        // Оповещаем класс геймплея о том, что орел уничтожен.
+        Game.destroyEagle();
     }
 }

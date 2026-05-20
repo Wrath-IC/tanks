@@ -4,7 +4,7 @@
  */
 
 import {StartMenu, ControlsFirst, ControlsSecond} from "./Enums.ts";
-import {Grid} from "./Grid.ts";
+import {Game} from "./Game.ts";
 import {Helper} from "./Helper.ts";
 import {Maps} from "./Maps.ts";
 
@@ -250,10 +250,10 @@ export class StartScreen {
 
     /**
      * Начинает игру.
-     * @param palyers Количество игроков.
+     * @param players Количество игроков.
      */
-    private startGame(palyers:number):void {
-        new Grid(this.level, palyers);
+    private startGame(players:number):void {
+        Game.newGame(this.level, players);
     }
 
     /**

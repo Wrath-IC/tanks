@@ -20,6 +20,9 @@ export namespace Config {
     // Задержка после нажития кнопки и началом движения танка игрока.
     export const moveDelay = 100;
 
+    // Количество жизней у игрока.
+    export const lives = 3;
+
     // Настройки игроков.
     export const player:TankConfig[] = [
         {

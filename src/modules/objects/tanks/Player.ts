@@ -7,6 +7,7 @@ import {Config} from "../../Config.ts";
 import {TankConfig, Location} from "../../Types.ts";
 import {BulletType, ControlsFirst, ControlsSecond, Direction} from "../../Enums.ts";
 import {Grid} from "../../Grid.ts";
+import {Game} from "../../Game.ts";
 import {AbstractTank} from "./AbstractTank.ts";
 import {Bullet} from "../projectiles/Bullet.ts";
 import {PlayerSpawn} from "../spawn/PlayerSpawn.ts";
@@ -97,6 +98,7 @@ export class Player extends AbstractTank {
     public destroy():void {
         super.destroy();
         this.removeControls();
+        Game.destroyTank(this.playerNum);
         this.spawn.spawn();
     }
 
