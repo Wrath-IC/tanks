@@ -7,6 +7,7 @@ import {StartMenu, ControlsFirst, ControlsSecond} from "./Enums.ts";
 import {Game} from "./Game.ts";
 import {Helper} from "./Helper.ts";
 import {Maps} from "./Maps.ts";
+import {Config} from "./Config.ts";
 
 export class StartScreen {
     /**
@@ -54,12 +55,6 @@ export class StartScreen {
         }
         this.itemsNum = itemsNum;
 
-        // Выбирает первый пункт меню.
-        this.select(StartMenu.onePlayer);
-
-        // Инициализируем управление.
-        this.initControls();
-
         // Записываем общее количество уровней.
         this.levelsNum = Maps.length;
         // Отображаем количиство уровней.
@@ -67,6 +62,14 @@ export class StartScreen {
 
         // Размещаем элемент в DOM-е.
         Helper.fillBody(this.el);
+
+        const me = this;
+        this.animate(function () {
+            // Выбирает первый пункт меню.
+            me.select(StartMenu.onePlayer);
+            // Инициализируем управление.
+            me.initControls();
+        });
     }
 
     /**
@@ -76,11 +79,12 @@ export class StartScreen {
         const el:HTMLElement = document.createElement('div');
         const icon:string = this.createIcon();
         el.setAttribute('id', 'startscreen');
-
-        el.innerHTML = '<div class="title"><p>Танчики</p></div>' +
+        const inner:HTMLElement = document.createElement('div');
+        inner.innerHTML = '<div class="title"><p>Танчики</p></div>' +
             '<div class="level"><p>Уровень 1</p></div>' +
             '<div class="row">' + icon + '<div class="text"><p>1 игрок</p></div></div>' +
             '<div class="row">' + icon + '<div class="text"><p>2 игрока</p></div></div>';
+        el.append(inner);
 
         return el;
     }
@@ -95,7 +99,7 @@ export class StartScreen {
             '<div class="body"></div>' +
             '<div class="barrel"></div>' +
             '<div class="decor"></div>' +
-            '</div>';
+        '</div>';
     }
 
     /**
@@ -103,7 +107,7 @@ export class StartScreen {
      * @param num Номер пункта меню.
      */
     private select(num:StartMenu):void {
-        const el = this.el;
+        const el = this.el.childNodes[0];
         const rows = [...el.childNodes]
             .map((item) => item as HTMLElement)
             .filter((item) => item.classList.contains('row'));
@@ -261,5 +265,18 @@ export class StartScreen {
      */
     private destroy() {
         this.removeControls();
+    }
+
+    /**
+     * Анимация стартового экрана.
+     * @param callback Функция, которая будет выполнена после анимации.
+     */
+    private animate(callback:() => void) {
+        const screenInner = this.el.childNodes[0] as HTMLElement;
+        screenInner.animate({ top: ['100%', '0'] }, {
+            duration: Config.startScreenDuration,
+            iterations: 1,
+            fill: 'forwards'
+        }).onfinish = callback;
     }
 }

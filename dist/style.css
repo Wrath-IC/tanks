@@ -4,10 +4,17 @@
 
 /* Стартовый экран */
 #startscreen {
+    position: relative;
     width: 600px;
+    height: 600px;
     margin: auto;
     background-color: #ccc;
-    padding-bottom: 100px;
+    overflow: hidden;
+}
+#startscreen > div {
+    position: absolute;
+    width: 600px;
+    height: 600px;
 }
 #startscreen .title p, .gameover p {
     text-align: center;

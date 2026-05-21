@@ -123,7 +123,7 @@ export class Game {
         const duration = Config.gameOverScreenDuration;
         screenInner.style.left = `${left}px`;
         screenInner.animate(animateConfig, {
-            duration:duration,
+            duration: duration,
             iterations: 1,
             fill: 'forwards'
         }).onfinish = function () {
