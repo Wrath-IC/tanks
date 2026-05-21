@@ -270,5 +270,24 @@ export const Maps:Readonly<MapConfig[]> = [
             f.armor, f.fast, f.fast, f.armor, f.rapid,
             f.rapid, f.simple, f.fast, f.fast, f.armor
         ]
+    },
+    {
+        size: {x:13, y:13},
+        objects: [
+            {objectType:o.spawnFoe, location:{x:0, y:0}},
+            {objectType:o.spawnFoe, location:{x:6, y:0}},
+            {objectType:o.spawnFoe, location:{x:12, y:0}},
+            {objectType:o.spawnFirstPlayer, location:{x:4, y:12}},
+            {objectType:o.spawnSecondPlayer, location:{x:8, y:12}},
+            {objectType:o.eagle, location:{x:6, y:12}},
+            {objectType:o.brick, location:{x:5, y:12}},
+            {objectType:o.brick, location:{x:5, y:11}},
+            {objectType:o.brick, location:{x:6, y:11}},
+            {objectType:o.brick, location:{x:7, y:11}},
+            {objectType:o.brick, location:{x:7, y:12}}
+        ],
+        foes: [
+            
+        ]
     }
 ];

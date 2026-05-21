@@ -47,6 +47,12 @@
 .gameover {
     position: absolute;
     z-index: 50;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+.gameover > div {
+    position: absolute;
 }
 .gameover p {
     -webkit-text-stroke: 1px #fff;

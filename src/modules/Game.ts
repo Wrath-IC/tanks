@@ -100,25 +100,29 @@ export class Game {
     private static gameOverScreen():void {
         const screen:HTMLElement = document.createElement('div');
         screen.classList.add('gameover');
-        screen.innerHTML = '<p>GAME</p><p>OVER</p>';
+        const screenInner = document.createElement('div');
+        screenInner.innerHTML = '<p>GAME</p><p>OVER</p>';
+        screen.append(screenInner);
         
         const grid = this.level && this.level.el;
         if (!grid) {
             return;
         }
+        screen.style.width = `${grid.offsetWidth}px`;
+        screen.style.height = `${grid.offsetHeight}px`;
         grid.parentNode && grid.parentNode.append(screen);
         
         // Анимация экрана.
         // Отступ слева.
-        const left = (grid.offsetWidth - screen.offsetWidth) / 2;
+        const left = (grid.offsetWidth - screenInner.offsetWidth) / 2;
         // Отступ сверху в начале анимации.
         const topStart = grid.offsetHeight;
         // Отступ сверху в конце анимации.
-        const topEnd = (grid.offsetHeight - screen.offsetHeight) / 2;
+        const topEnd = (grid.offsetHeight - screenInner.offsetHeight) / 2;
         const animateConfig = { top: [`${topStart}px`, `${topEnd}px`] };
         const duration = Config.gameOverScreenDuration;
-        screen.style.left = `${left}px`;
-        screen.animate(animateConfig, {
+        screenInner.style.left = `${left}px`;
+        screenInner.animate(animateConfig, {
             duration:duration,
             iterations: 1,
             fill: 'forwards'
