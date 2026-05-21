@@ -17,6 +17,7 @@ import {Ceramic} from "./objects/obstacles/Ceramic.ts";
 import {Brick} from "./objects/obstacles/Brick.ts";
 import {Ice} from "./objects/bgobjects/Ice.ts";
 import {Bullet} from "./objects/projectiles/Bullet.ts";
+import {BulletManager} from "./objects/projectiles/BulletManager.ts";
 import {PlayerSpawn} from "./objects/spawn/PlayerSpawn.ts";
 
 export class Grid {
@@ -259,5 +260,30 @@ export class Grid {
         });
 
         return hasIce;
+    }
+
+    /**
+     * Окончание уровня.
+     */
+    public destroy():void {
+        // Уничтожаем все танки: танки игроков чтобы снять управление, танки
+        // противников чтобы отключить ИИ.
+        const solidObjects = this.solidObjects;
+        for (let x = 0; x < this.x; x++) {
+            for (let y = 0; y < this.y; y++) {
+                const item = solidObjects[x][y];
+                if (item && item instanceof AbstractTank) {
+                    item.destroy(true);
+                }
+            }
+        }
+
+        // Уничтожаем все пули.
+        BulletManager.removeAllBullets();
+
+        // Удаляем поле боя из DOM-а.
+        const el = this.el;
+        const parent = el.parentNode;
+        parent && parent.removeChild(el);
     }
 }

@@ -54,16 +54,18 @@ export class PlayerSpawn extends AbstractSpawn {
             // Создаем событие: оно вызовет создание заглушки как только нужная
             // клетка будет свободна.
             const intervalId = window.setInterval(function () {
-                if (!Game.isLevel(me.grid)) {
-                    // Если уже запущен другой уровень, прерываем выполнение.
+                if (!Game.isLevelPlaying(me.grid)) {
+                    // Если уже запущен другой уровень или получили геймовер,
+                    // прерываем выполнение.
                     window.clearInterval(intervalId);
                 } else if (!me.grid.getSolidObject(me.location)) {
                     window.clearInterval(intervalId);
                     // Создаем заглушку.
                     const plug = new Plug(me.grid, me.location);
                     window.setTimeout(function () {
-                        // Если еще не перешли на следующий уровень.
-                        if (Game.isLevel(me.grid)) {
+                        // Если еще не перешли на следующий уровень и не получили
+                        // геймовер.
+                        if (Game.isLevelPlaying(me.grid)) {
                             // Убираем заглушку.
                             plug.destroy();
                             // Создаем танк.

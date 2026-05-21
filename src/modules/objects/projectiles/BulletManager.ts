@@ -28,7 +28,7 @@ export class BulletManager {
             BulletManager.bullets.push(bullet);
         }
     }
-    
+
     /**
      * Обработчик уничтожения снаряда.
      * @param bullet Снаряд.
@@ -40,7 +40,18 @@ export class BulletManager {
             BulletManager.bullets.splice(index, 1);
         }
     }
-    
+
+    /**
+     * Уничтожает все снаряды.
+     * @param bullet Снаряд.
+     */
+    public static removeAllBullets():void {
+        const bullets = [...this.bullets];
+        for (let i = 0; i < bullets.length; i++) {
+            bullets[i].destroy(true);
+        }
+    }
+
     /**
      * Обработчик передвижения снаряда.
      * @param bullet Снаряд.

@@ -196,10 +196,14 @@ export abstract class AbstractTank extends SolidObject {
 
     /**
      * Уничтожает танк.
+     * @param silent Нужно ли уничтожить танк по-тихому. Эта опция нужна для
+     * уничтожения танка при окончании уровня.
      */
-    public destroy():void {
+    public destroy(silent:boolean = false):void {
         const coordinates = {x:this.icon.offsetLeft, y:this.icon.offsetTop};
         super.destroy();
-        new TankExplosion(this.grid, this.location, coordinates);
+        if (!silent) {
+            new TankExplosion(this.grid, this.location, coordinates);
+        }
     }
 }

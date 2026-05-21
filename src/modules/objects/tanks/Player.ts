@@ -94,12 +94,17 @@ export class Player extends AbstractTank {
 
     /**
      * Уничтожает танк.
+     * @param silent Если выставлено в true, то при уничтожении танка не будут
+     * отниматься жизни и запускаться респаун. Эта опция нужна для уничтожения
+     * танка при окончании уровня.
      */
-    public destroy():void {
-        super.destroy();
+    public destroy(silent:boolean = false):void {
+        super.destroy(silent);
         this.removeControls();
-        Game.destroyTank(this.playerNum);
-        this.spawn.spawn();
+        if (!silent) {
+            Game.destroyTank(this.playerNum);
+            this.spawn.spawn();
+        }
     }
 
     /**

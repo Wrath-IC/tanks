@@ -6,6 +6,7 @@
 import {Player} from "./objects/tanks/Player.ts";
 import {Config} from "./Config.ts";
 import {Grid} from "./Grid.ts";
+import {StartScreen} from "./StartScreen.ts";
 
 export class Game {
     private constructor() {};
@@ -73,8 +74,17 @@ export class Game {
      * отложенных действий чтобы проверить, не перешли ли мы на следующий уровень.
      * @param level Уровень.
      */
-    public static isLevel(level:Grid):boolean {
+    private static isLevel(level:Grid):boolean {
         return level === this.level;
+    }
+
+    /**
+     * Проверяет, играется ли в данный момент переданный уровень. Считаем, что
+     * уровень играется, если не перешли на другой уровень и не получили геймовер.
+     * @param level Уровень.
+     */
+    public static isLevelPlaying(level:Grid):boolean {
+        return Game.isLevel(level) && !Game.isGameOver;
     }
 
     /**
@@ -127,7 +137,25 @@ export class Game {
             iterations: 1,
             fill: 'forwards'
         }).onfinish = function () {
-            // todo Завершение уровня после геймовера.
+            // Завершение уровня после геймовера.
+            window.setTimeout(function () {
+                // Убираем экран геймовера.
+                const parent = screen.parentNode;
+                parent && parent.removeChild(screen);
+                // Запускаем процедуру перехода к стартовому экрану.
+                Game.startScreen();
+            }, Config.gameOverScreenTime);
         };
+    }
+
+    /**
+     * Возвращение на стартовый экран.
+     */
+    private static startScreen():void {
+        // Уничтожаем уровень.
+        Game.level && Game.level.destroy();
+
+        // Открываем стартовый экран.
+        new StartScreen();
     }
 }

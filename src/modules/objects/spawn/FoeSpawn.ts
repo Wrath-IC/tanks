@@ -8,6 +8,7 @@ import {Plug} from "./Plug.ts";
 import {Grid} from "../../Grid.ts";
 import {Location} from "../../Types.ts";
 import {FoeType} from "../../Enums.ts";
+import {Game} from "../../Game.ts";
 import {Foe} from "../tanks/Foe.ts";
 import {Config} from "../../Config.ts";
 
@@ -136,16 +137,22 @@ export class FoeSpawn extends AbstractSpawn {
             // клетка будет свободна.
             const intervalId = window.setInterval(function () {
                 const spawn = FoeSpawn.getNextSpawn();
+
                 if (spawn) {
                     window.clearInterval(intervalId);
-                    // Создаем заглушку.
-                    const plug = new Plug(spawn.grid, spawn.location);
-                    window.setTimeout(function () {
-                        // Убираем заглушку.
-                        plug.destroy();
-                        // Создаем танк.
-                        new Foe(spawn.grid, spawn.location, foeType);
-                    }, Config.Spawn.plugTime);
+                    if (Game.isLevelPlaying(spawn.grid)) {
+                        // Создаем заглушку (если уровень еще не закончен).
+                        const plug = new Plug(spawn.grid, spawn.location);
+                        window.setTimeout(function () {
+                            // Если еще играем уровень.
+                            if (Game.isLevelPlaying(spawn.grid)) {
+                                // Убираем заглушку.
+                                plug.destroy();
+                                // Создаем танк.
+                                new Foe(spawn.grid, spawn.location, foeType);
+                            }
+                        }, Config.Spawn.plugTime);
+                    }
                 }
             }, 1000 / Config.fps);
         }, Config.Spawn.delay);
