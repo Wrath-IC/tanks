@@ -69,6 +69,7 @@
 /* Поле боя */
 table#battlefield {
     border-spacing: 0;
+    margin: auto;
 }
 table#battlefield > tr > td {
     width: 64px;
