@@ -3,7 +3,7 @@
  * Стартовый экран.
  */
 
-import {StartMenu, ControlsFirst, ControlsSecond} from "./Enums.ts";
+import {StartMenu, ControlsFirst, ControlsSecond, ControlsMenu} from "./Enums.ts";
 import {Game} from "./Game.ts";
 import {Helper} from "./Helper.ts";
 import {Maps} from "./Maps.ts";
@@ -150,6 +150,29 @@ export class StartScreen {
         const keyCode = event.keyCode;
 
         switch (keyCode) {
+            // Клавиши управления для меню имеют более высокий приоритет, чем
+            // клавиши управления танком.
+            case ControlsMenu.up:
+                this.previousItem();
+                event.preventDefault();
+                break;
+            case ControlsMenu.down:
+                this.nextItem();
+                event.preventDefault();
+                break;
+            case ControlsMenu.left:
+                this.previousLevel();
+                event.preventDefault();
+                break;
+            case ControlsMenu.right:
+                this.nextLevel();
+                event.preventDefault();
+                break;
+            case ControlsMenu.shoot:
+                this.selectItem();
+                event.preventDefault();
+                break;
+
             case ControlsFirst.up:
             case ControlsSecond.up:
                 this.previousItem();

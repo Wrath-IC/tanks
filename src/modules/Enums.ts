@@ -47,6 +47,14 @@ export enum ControlsSecond {
     down = 76,
     shoot = 13
 }
+// Клавиши управления меню.
+export enum ControlsMenu {
+    left = 37,
+    right = 39,
+    up = 38,
+    down = 40,
+    shoot = 13
+}
 // Тип спаунера.
 export enum SpawnType {
     foe,
