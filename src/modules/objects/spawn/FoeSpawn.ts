@@ -11,6 +11,7 @@ import {FoeType} from "../../Enums.ts";
 import {Game} from "../../Game.ts";
 import {Foe} from "../tanks/Foe.ts";
 import {Config} from "../../Config.ts";
+import {Stat} from "../../Stat.ts";
 
 export class FoeSpawn extends AbstractSpawn {
     /**
@@ -24,7 +25,7 @@ export class FoeSpawn extends AbstractSpawn {
     private static nextSpawnNum:number = 0;
     
     /**
-     * Список текущих доступных спаунеров.
+     * Список противников, которых нужно заспаунить.
      */
     public static foes:FoeType[] = [];
     
@@ -132,6 +133,9 @@ export class FoeSpawn extends AbstractSpawn {
         // Берем первый танк из списка танков противника.
         const foeType:FoeType = FoeSpawn.foes.splice(0, 1)[0];
 
+        // Обновляем панель статистики.
+        FoeSpawn.refreshStat();
+
         window.setTimeout(function () {
             // Создаем событие: оно вызовет создание заглушки как только хоть одна
             // клетка будет свободна.
@@ -180,6 +184,10 @@ export class FoeSpawn extends AbstractSpawn {
         return allowed;
     }
 
+    /**
+     * Возвращает свободный спаунер, на который нужно заспаунить следующий танк.
+     * Если свободного спаунера нет, возвращает null.
+     */
     private static getNextSpawn():FoeSpawn|null {
         // Проверяем, что есть пустой спаунер.
         if(!FoeSpawn.hasEmptySpawn()) {
@@ -207,5 +215,12 @@ export class FoeSpawn extends AbstractSpawn {
         }
 
         return spawn;
+    }
+
+    /**
+     * Обновляет статистику.
+     */
+    public static refreshStat():void {
+        FoeSpawn.spawns.length && FoeSpawn.spawns[0].grid.refreshStat();
     }
 }

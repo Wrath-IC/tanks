@@ -59,6 +59,9 @@ export class Game {
             // Если в сумме у игроков осталось ноль жизней, обявляем геймовер.
             !livesSum && Game.gameOver();
         }
+        
+        // Обновляем экран статистики на уровне.
+        this.level && this.level.refreshStat();
     }
 
     /**
@@ -157,5 +160,20 @@ export class Game {
 
         // Открываем стартовый экран.
         new StartScreen();
+    }
+
+    /**
+     * Возвращает текущее количество игроков.
+     */
+    public static getPlayerNum():number {
+        return Game.lives ? Game.lives.length : 1;
+    }
+
+    /**
+     * Возвращает текущее количество жизней у игрока.
+     * @param {player} Номер игрока.
+     */
+    public static getPlayerLives(player:number):number {
+        return Game.lives && Game.lives.length > player ? Game.lives[player] : 0;
     }
 }

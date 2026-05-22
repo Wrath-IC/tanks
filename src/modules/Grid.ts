@@ -8,6 +8,7 @@ import {Location} from "./Types.ts";
 import {Helper} from "./Helper.ts";
 import {Exception} from "./Exception.ts";
 import {Map} from "./Map.ts";
+import {Stat} from "./Stat.ts";
 import {SolidObject} from "./objects/SolidObject.ts";
 import {BackgroundObject} from "./objects/BackgroundObject.ts";
 import {AbstractTank} from "./objects/tanks/AbstractTank.ts";
@@ -52,6 +53,11 @@ export class Grid {
     private backgroundObjects:BackgroundObject[][][];
 
     /**
+     * Панель статистики.
+     */
+    private readonly stat:Stat;
+
+    /**
      * Конструктор.
      * @param mapNum Номер карты
      * @param playerNum Количество игроков.
@@ -70,6 +76,7 @@ export class Grid {
         this.y = y;
 
         // Создаем элемент поля боя для DOM-а.
+        this.stat = new Stat();
         this.el = this.createGrid(x, y);
 
         // Заполняем двумерный массив твердых объектов null-ами.
@@ -81,6 +88,9 @@ export class Grid {
 
         // Заполняем поле боя объектами карты.
         map.fill();
+        
+        // Обновляем панель статистики.
+        this.stat.refresh();
 
         // Отрисовываем поле боя.
         Helper.fillBody(this.el);
@@ -98,6 +108,16 @@ export class Grid {
 
         for (let i = 0; i < y; i++) {
             const tr:HTMLElement = this.createRow(x);
+            
+            if (i === 0) {
+                // Ячейка для панели статистики.
+                const statTd = document.createElement('td');
+                statTd.setAttribute('rowspan', `${y}`);
+                statTd.setAttribute('class', 'stat');
+                statTd.append(this.stat.el);
+                tr.append(statTd);
+            }
+            
             grid.append(tr);
         }
 
@@ -285,5 +305,12 @@ export class Grid {
         const el = this.el;
         const parent = el.parentNode;
         parent && parent.removeChild(el);
+    }
+
+    /**
+     * Обновление ститистики.
+     */
+    public refreshStat():void {
+        this.stat.refresh();
     }
 }
