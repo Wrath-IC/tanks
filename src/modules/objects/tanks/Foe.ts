@@ -197,7 +197,7 @@ export class Foe extends AbstractTank {
     public destroy(silent:boolean = false):void {
         super.destroy(silent);
 
-        // Изменяем количество заспауненных танков в классе спаунера.
-        FoeSpawn.tanksSpawned--;
+        // Оповещаем класс спаунера об уничтожении танка.
+        FoeSpawn.tankDestroyed();
     }
 }

@@ -27,17 +27,27 @@ export class FoeSpawn extends AbstractSpawn {
     /**
      * Список противников, которых нужно заспаунить.
      */
-    public static foes:FoeType[] = [];
+    private static foes:FoeType[] = [];
     
     /**
      * Количество заспауненных противников в данный момент.
      */
-    public static tanksSpawned:number = 0;
+    private static tanksSpawned:number = 0;
     
     /**
      * Был ли запущен спаун противников.
      */
-    public static spawnStarted:boolean = false;
+    private static spawnStarted:boolean = false;
+
+    /**
+     * Общее количество танков на данном уровне. Нужно для услови окончания уровня.
+     */
+    private static foesTotal:number = 0;
+
+    /**
+     * Количество уничтоженных танков на данном уровне. Нужно для услови окончания уровня.
+     */
+    private static foesDestroyed:number = 0;
     
     public constructor(grid:Grid, location:Location) {
         super(grid, location);
@@ -62,12 +72,12 @@ export class FoeSpawn extends AbstractSpawn {
             // Первый спаун запускается без задержки.
             FoeSpawn.spawn();
 
-            FoeSpawn.foes.length && window.setTimeout(function () {
+            FoeSpawn.getFoesLeft() && window.setTimeout(function () {
                 spawn();
             }, Config.Spawn.foeSpawnFrequency);
         };
 
-        FoeSpawn.foes.length && spawn();
+        FoeSpawn.getFoesLeft() && spawn();
     }
     
     /**
@@ -104,7 +114,10 @@ export class FoeSpawn extends AbstractSpawn {
         FoeSpawn.spawns = [];
         FoeSpawn.nextSpawnNum = 0;
         FoeSpawn.foes = foes;
+        FoeSpawn.foesTotal = foes.length;
+        FoeSpawn.foesDestroyed = 0;
         FoeSpawn.spawnStarted = false;
+        FoeSpawn.tanksSpawned = 0;
     }
 
     /**
@@ -114,7 +127,7 @@ export class FoeSpawn extends AbstractSpawn {
         const me = this;
 
         // Если не осталось танков для призыва, прерываем выполнение.
-        if (!FoeSpawn.foes.length) {
+        if (!FoeSpawn.getFoesLeft()) {
             return;
         }
 
@@ -222,5 +235,27 @@ export class FoeSpawn extends AbstractSpawn {
      */
     public static refreshStat():void {
         FoeSpawn.spawns.length && FoeSpawn.spawns[0].grid.refreshStat();
+    }
+
+    /**
+     * Событие уничтожения танка.
+     */
+    public static tankDestroyed():void {
+        // Изменяем количество заспауненных танков в классе спаунера.
+        FoeSpawn.tanksSpawned--;
+
+        // Изменяем количество уничтоженных танков.
+        FoeSpawn.foesDestroyed++;
+
+        if (FoeSpawn.foesDestroyed >= FoeSpawn.foesTotal) {
+            Game.nextLevel();
+        }
+    }
+
+    /**
+     * Возвращает количество танков, доступных для спауна.
+     */
+    public static getFoesLeft():number {
+        return FoeSpawn.foes.length;
     }
 }

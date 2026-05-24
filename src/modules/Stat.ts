@@ -50,7 +50,7 @@ export class Stat {
         const el = this.el;
         const foesArray = el.getElementsByClassName('foes');
         const foes = foesArray.length ? foesArray[0] : null;
-        const foesNum = FoeSpawn.foes.length;
+        const foesNum = FoeSpawn.getFoesLeft();
         if (foes) {
             foes.innerHTML = '';
             for (let i = 0; i < foesNum; i++) {

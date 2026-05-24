@@ -30,7 +30,11 @@ export namespace Config {
     export const gameOverScreenDuration = 2000;
 
     // Время, которое надпись "Game over" будет оставаться на экране.
-    export const gameOverScreenTime = 7000;
+    export const gameOverScreenTime = 5000;
+
+    // Время, которое проходит между уничтожением последнего танка противника и
+    // стартом следующего уровня.
+    export const levelEndTime = 5000;
 
     // Настройки игроков.
     export const player:TankConfig[] = [

@@ -38,7 +38,7 @@ export class Map {
         this.mapConfig = Maps[mapNum];
 
         // Подготавливаем спаунер противников.
-        FoeSpawn.prepareSpawner(this.mapConfig.foes);
+        FoeSpawn.prepareSpawner([...this.mapConfig.foes]);
     }
 
     /**

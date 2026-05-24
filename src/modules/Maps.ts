@@ -287,7 +287,7 @@ export const Maps:Readonly<MapConfig[]> = [
             {objectType:o.brick, location:{x:7, y:12}}
         ],
         foes: [
-            
+            f.simple, f.fast
         ]
     }
 ];

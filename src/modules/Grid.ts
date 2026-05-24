@@ -43,6 +43,11 @@ export class Grid {
     public readonly playerNum:number;
 
     /**
+     * Номер карты.
+     */
+    public readonly mapNum:number;
+
+    /**
      * Массив текущих твердых объектов.
      */
     private solidObjects:Array<Array<SolidObject|null>>;
@@ -65,6 +70,8 @@ export class Grid {
     public constructor(mapNum:number, playerNum:number) {
         // Устанавливаем количество игроков.
         this.playerNum = playerNum;
+        // Устанавливаем номер карты.
+        this.mapNum = mapNum;
 
         // Создаем карту.
         const map = new Map(this, mapNum);

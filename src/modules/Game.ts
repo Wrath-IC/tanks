@@ -6,6 +6,7 @@
 import {Player} from "./objects/tanks/Player.ts";
 import {Config} from "./Config.ts";
 import {Grid} from "./Grid.ts";
+import {Maps} from "./Maps.ts";
 import {StartScreen} from "./StartScreen.ts";
 
 export class Game {
@@ -27,6 +28,11 @@ export class Game {
     private static isGameOver:boolean = false;
 
     /**
+     * Количество игроков.
+     */
+    private static players:number = 1;
+
+    /**
      * Запускает новую игру.
      * @param level Номер начального уровня.
      * @param players Количество игроков.
@@ -36,6 +42,8 @@ export class Game {
         Game.lives = Array(players).fill(Config.lives);
         // Записываем, что еще не наступил геймовер.
         Game.isGameOver = false;
+        // Записываем количество игроков.
+        Game.players = players;
         // Создаем поле боя.
         Game.level = new Grid(level, players);
     }
@@ -175,5 +183,24 @@ export class Game {
      */
     public static getPlayerLives(player:number):number {
         return Game.lives && Game.lives.length > player ? Game.lives[player] : 0;
+    }
+
+    /**
+     * Запускает переход на следующий уровень.
+     */
+    public static nextLevel():void {
+        !Game.isGameOver && window.setTimeout(function () {
+            if (!Game.isGameOver && Game.level) {
+                // Уничтожаем текущее поле боя.
+                Game.level.destroy();
+                
+                // Номер уровня.
+                const oldLevelNum = Game.level.mapNum;
+                const newLevelNum = oldLevelNum >= Maps.length - 1 ? 0 : oldLevelNum + 1;
+                
+                // Создаем новое поле боя.
+                Game.level = new Grid(newLevelNum, Game.players);
+            }
+        }, Config.levelEndTime);
     }
 }
