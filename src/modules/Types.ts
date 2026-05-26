@@ -1,19 +1,22 @@
 /**
- * Типы.
+ * Типы и интерфейсы.
  */
 
 import {FoeType, MapObjectType} from "./Enums.ts";
 
 // Настройки танков.
-export type TankConfig = {
+export interface TankConfig {
     name: string; // Имя.
     cls: string; // Класс иконки.
     speed: number; // Множитель скорости. При единице будет базовая скорость.
     bulletSpeed: number; // Множитель скорости пули.
-    hitPoints: number; // Количество хп танка.
     bullets: number; // Количество снарядов, которые могут быть на поле боя одновременно.
-    spawnCls?: string; // Класс спаунера.
-};
+    hitPoints: number; // Количество хп танка.
+}
+export interface TankConfigPlayer extends TankConfig {
+    spawnCls: string; // Класс спаунера.
+}
+export interface TankConfigFoe extends TankConfig {}
 
 // Настройки препятствий.
 export type ObstacleConfig = {

@@ -4,7 +4,7 @@
  */
 
 import {Config} from "../../Config.ts";
-import {TankConfig, Location} from "../../Types.ts";
+import {TankConfigPlayer, Location} from "../../Types.ts";
 import {BulletType, ControlsFirst, ControlsSecond, Direction} from "../../Enums.ts";
 import {Grid} from "../../Grid.ts";
 import {Game} from "../../Game.ts";
@@ -21,7 +21,7 @@ export class Player extends AbstractTank {
     /**
      * Настройки танка.
      */
-    public readonly tankConfig:TankConfig;
+    public readonly tankConfig:TankConfigPlayer;
 
     /**
      * Спаун игрока.

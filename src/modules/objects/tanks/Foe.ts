@@ -4,7 +4,7 @@
  */
 
 import {Config} from "../../Config.ts";
-import {TankConfig, Location} from "../../Types.ts";
+import {TankConfigFoe, Location} from "../../Types.ts";
 import {FoeType, BulletType, Direction} from "../../Enums.ts";
 import {Grid} from "../../Grid.ts";
 import {AbstractTank} from "./AbstractTank.ts";
@@ -25,7 +25,7 @@ export class Foe extends AbstractTank {
     /**
      * Настройки танка.
      */
-    public readonly tankConfig:TankConfig;
+    public readonly tankConfig:TankConfigFoe;
 
     /**
      * Количество хитпоинтов объекта.

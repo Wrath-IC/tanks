@@ -2,7 +2,7 @@
  * Список конфигураций.
  */
 
-import {TankConfig, ObstacleConfig} from "./Types.ts";
+import {TankConfigPlayer, TankConfigFoe, ObstacleConfig} from "./Types.ts";
 
 export namespace Config {
     // Базовое время, за которое танк преодолевает одну клетку.
@@ -40,7 +40,7 @@ export namespace Config {
     export const levelChangeAnimationTime = 1000;
 
     // Настройки игроков.
-    export const player:TankConfig[] = [
+    export const player:TankConfigPlayer[] = [
         {
             name: "Первый игрок",
             cls: "player first-player",
@@ -62,7 +62,7 @@ export namespace Config {
     ];
 
     // Настройки противников.
-    export const foe:TankConfig[] = [
+    export const foe:TankConfigFoe[] = [
         {
             name: "Обычный танк",
             cls: "foe foe-simple",
