@@ -587,3 +587,15 @@ table#battlefield td.stat .stat-panel .lives-block {
     background-color: #5454a4;
     clip-path: polygon(0 45%, 45% 0, 55% 0, 0 55%, 0 100%, 45% 100%, 100% 45%, 100% 55%, 55% 100%, 0 100%);
 }
+
+/* Анимация начала и окончания уровня. */
+table#battlefield {
+    animation: 1s levelchange;
+}
+table#battlefield.endlevel {
+    animation: 1s levelchange reverse;
+}
+@keyframes levelchange {
+    0% { clip-path: circle(0%); }
+    100% { clip-path: circle(75%); }
+}

@@ -7,6 +7,7 @@ import {Player} from "./objects/tanks/Player.ts";
 import {Config} from "./Config.ts";
 import {Grid} from "./Grid.ts";
 import {Maps} from "./Maps.ts";
+import {Helper} from "./Helper.ts";
 import {StartScreen} from "./StartScreen.ts";
 
 export class Game {
@@ -191,15 +192,28 @@ export class Game {
     public static nextLevel():void {
         !Game.isGameOver && window.setTimeout(function () {
             if (!Game.isGameOver && Game.level) {
+                // Создаем снимок текущего уровня для анимации окончания уровня.
+                const plug = Game.level.el.cloneNode(true) as HTMLElement;
+
                 // Уничтожаем текущее поле боя.
                 Game.level.destroy();
-                
+
                 // Номер уровня.
                 const oldLevelNum = Game.level.mapNum;
                 const newLevelNum = oldLevelNum >= Maps.length - 1 ? 0 : oldLevelNum + 1;
-                
-                // Создаем новое поле боя.
-                Game.level = new Grid(newLevelNum, Game.players);
+
+                // Анимация конца уровня.
+                Helper.fillBody(plug);
+                plug.classList.add('endlevel');
+
+                window.setTimeout(function () {
+                    // Удаляем снимок старого поля боя.
+                    const parent = plug.parentNode;
+                    parent && parent.removeChild(plug);
+
+                    // Создаем новое поле боя.
+                    Game.level = new Grid(newLevelNum, Game.players);
+                }, Config.levelChangeAnimationTime)
             }
         }, Config.levelEndTime);
     }

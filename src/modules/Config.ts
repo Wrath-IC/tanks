@@ -36,6 +36,9 @@ export namespace Config {
     // стартом следующего уровня.
     export const levelEndTime = 5000;
 
+    // Время анимации при начале и окончании уровня.
+    export const levelChangeAnimationTime = 1000;
+
     // Настройки игроков.
     export const player:TankConfig[] = [
         {

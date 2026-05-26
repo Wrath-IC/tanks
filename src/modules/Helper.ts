@@ -5,6 +5,7 @@
 
 import {Direction} from "./Enums.ts";
 import {Location} from "./Types.ts";
+import {Config} from "./Config.ts";
 
 export class Helper {
     private constructor () {}
