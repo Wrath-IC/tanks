@@ -5,7 +5,7 @@
 
 import {Config} from "../../Config.ts";
 import {TankConfigFoe, Location} from "../../Types.ts";
-import {FoeType, BulletType, Direction} from "../../Enums.ts";
+import {FoeType, BulletType, Direction, SoundType} from "../../Enums.ts";
 import {Grid} from "../../Grid.ts";
 import {AbstractTank} from "./AbstractTank.ts";
 import {Player} from "./Player.ts";
@@ -15,6 +15,7 @@ import {Ceramic} from "../obstacles/Ceramic.ts";
 import {Water} from "../obstacles/Water.ts";
 import {FoeSpawn} from "../spawn/FoeSpawn.ts";
 import {Helper} from "../../Helper.ts";
+import {Sound} from "../../Sound.ts";
 
 export class Foe extends AbstractTank {
     /**
@@ -199,5 +200,10 @@ export class Foe extends AbstractTank {
 
         // Оповещаем класс спаунера об уничтожении танка.
         FoeSpawn.tankDestroyed();
+
+        if (!silent) {
+            // Воспроизводим звук.
+            Sound.play(SoundType.foe);
+        }
     }
 }

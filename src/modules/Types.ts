@@ -2,7 +2,7 @@
  * Типы и интерфейсы.
  */
 
-import {FoeType, MapObjectType} from "./Enums.ts";
+import {FoeType, MapObjectType, SoundType} from "./Enums.ts";
 
 // Настройки танков.
 export interface TankConfig {
@@ -47,4 +47,11 @@ export type MapConfig = {
     size: {x:number, y:number},
     objects:MapObjectConfig[],
     foes:FoeType[]
+}
+
+// Настройки звуков.
+export type SoundConfig = {
+    file: string,
+    repeat: boolean,
+    volume: number
 }

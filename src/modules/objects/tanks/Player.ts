@@ -5,12 +5,13 @@
 
 import {Config} from "../../Config.ts";
 import {TankConfigPlayer, Location} from "../../Types.ts";
-import {BulletType, ControlsFirst, ControlsSecond, Direction} from "../../Enums.ts";
+import {BulletType, ControlsFirst, ControlsSecond, Direction, SoundType} from "../../Enums.ts";
 import {Grid} from "../../Grid.ts";
 import {Game} from "../../Game.ts";
 import {AbstractTank} from "./AbstractTank.ts";
 import {Bullet} from "../projectiles/Bullet.ts";
 import {PlayerSpawn} from "../spawn/PlayerSpawn.ts";
+import {Sound} from "../../Sound.ts";
 
 export class Player extends AbstractTank {
     /**
@@ -104,6 +105,9 @@ export class Player extends AbstractTank {
         if (!silent) {
             Game.destroyTank(this.playerNum);
             this.spawn.spawn();
+
+            // Воспроизводим звук.
+            Sound.play(SoundType.player);
         }
     }
 

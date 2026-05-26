@@ -4,7 +4,7 @@
  */
 
 import {Config} from "../../Config.ts";
-import {Direction, BulletType} from "../../Enums.ts";
+import {Direction, BulletType, SoundType} from "../../Enums.ts";
 import {Location} from "../../Types.ts";
 import {Grid} from "../../Grid.ts";
 import {Coordinates} from "../../Types.ts";
@@ -17,6 +17,7 @@ import {AbstractObstacle} from "../obstacles/AbstractObstacle.ts";
 import {Water} from "../obstacles/Water.ts";
 import {BulletExplosion} from "../explosions/BulletExplosion.ts";
 import {BulletManager} from "./BulletManager.ts";
+import {Sound} from "../../Sound.ts";
 
 export class Bullet {
     /**
@@ -121,6 +122,11 @@ export class Bullet {
 
         // Добавляем снаряд в менеджер.
         BulletManager.addBullet(this);
+
+        if (this.bulletType === BulletType.player) {
+            // Воспроизводим звук.
+            Sound.play(SoundType.bullet);
+        }
     }
 
     /**

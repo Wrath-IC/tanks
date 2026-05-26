@@ -2,7 +2,8 @@
  * Список конфигураций.
  */
 
-import {TankConfigPlayer, TankConfigFoe, ObstacleConfig} from "./Types.ts";
+import {TankConfigPlayer, TankConfigFoe, ObstacleConfig, SoundConfig} from "./Types.ts";
+import {SoundType, ObstacleType, FoeType} from "./Enums.ts";
 
 export namespace Config {
     // Базовое время, за которое танк преодолевает одну клетку.
@@ -62,8 +63,8 @@ export namespace Config {
     ];
 
     // Настройки противников.
-    export const foe:TankConfigFoe[] = [
-        {
+    export const foe:Record<FoeType, TankConfigFoe> = {
+        [FoeType.simple]: {
             name: "Обычный танк",
             cls: "foe foe-simple",
             speed: 1,
@@ -71,7 +72,7 @@ export namespace Config {
             hitPoints: 1,
             bullets: 1
         },
-        {
+        [FoeType.fast]: {
             name: "Быстрый танк",
             cls: "foe foe-fast",
             speed: 2,
@@ -79,7 +80,7 @@ export namespace Config {
             hitPoints: 1,
             bullets: 1
         },
-        {
+        [FoeType.rapid]: {
             name: "Скорострельный танк",
             cls: "foe foe-rapid",
             speed: 1,
@@ -87,7 +88,7 @@ export namespace Config {
             hitPoints: 1,
             bullets: 1
         },
-        {
+        [FoeType.armor]: {
             name: "Бронированный танк",
             cls: "foe foe-armor",
             speed: 1,
@@ -95,25 +96,25 @@ export namespace Config {
             hitPoints: 4,
             bullets: 1
         }
-    ];
-    
-    export const obstacle:ObstacleConfig[] = [
-        {
+    }
+
+    export const obstacle:Record<ObstacleType, ObstacleConfig> = {
+        [ObstacleType.ceramic]: {
             name: "Кафельки",
             cls: "obstacle obstacle-ceramic",
             hitPoints: 4
         },
-        {
+        [ObstacleType.brick]: {
             name: "Кирпичи",
             cls: "obstacle obstacle-brick",
             hitPoints: 4
         },
-        {
+        [ObstacleType.water]: {
             name: "Вода",
             cls: "obstacle obstacle-water",
             hitPoints: Infinity
         }
-    ];
+    }
 
     export namespace Bullet {
         // Базовое время, за которое снаряд преодолевает одну клетку.
@@ -137,5 +138,33 @@ export namespace Config {
         export const plugCls = 'plug';
         // Количество fps при анимации иконки.
         export const plugAnimationFps = 5;
+    }
+
+    export namespace Sound {
+        // Директория, в которой находятся звуковые файлы.
+        export const dir = 'sounds/';
+        
+        export const config:Record<SoundType, SoundConfig> = {
+            [SoundType.bullet]: {
+                file: 'shoot.m4a',
+                repeat: false,
+                volume: 0.6
+            },
+            [SoundType.player]: {
+                file: 'explosion-player.m4a',
+                repeat: false,
+                volume: 1
+            },
+            [SoundType.foe]: {
+                file: 'explosion-foe.m4a',
+                repeat: false,
+                volume: 1
+            },
+            [SoundType.eagle]: {
+                file: 'explosion-eagle.m4a',
+                repeat: false,
+                volume: 1
+            }
+        }
     }
 }

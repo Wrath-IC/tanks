@@ -6,10 +6,12 @@
 import {Plug} from "./Plug.ts";
 import {SolidObject} from "../SolidObject.ts";
 import {Location} from "../../Types.ts";
+import {SoundType} from "../../Enums.ts";
 import {Grid} from "../../Grid.ts";
 import {Game} from "../../Game.ts";
 import {Bullet} from "../projectiles/Bullet.ts";
 import {TankExplosion} from "../explosions/TankExplosion.ts";
+import {Sound} from "../../Sound.ts";
 
 export class Eagle extends SolidObject {
     /**
@@ -69,5 +71,8 @@ export class Eagle extends SolidObject {
 
         // Оповещаем класс геймплея о том, что орел уничтожен.
         Game.destroyEagle();
+
+        // Воспроизводим звук.
+        Sound.play(SoundType.eagle);
     }
 }

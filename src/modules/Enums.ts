@@ -73,3 +73,10 @@ export enum MapObjectType {
     bush,
     ice
 }
+// Звуки.
+export enum SoundType {
+    bullet,
+    player,
+    foe,
+    eagle
+}
